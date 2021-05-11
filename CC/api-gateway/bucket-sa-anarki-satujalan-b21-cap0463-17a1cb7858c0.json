@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "anarki-satujalan-b21-cap0463",
+  "private_key_id": "17a1cb7858c01c9a56ff89de8bf7ceedd181a519",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqyt4DaL1OMou+\nihJXYMJmD7qpWJi1xUkSVVYQIulC6R4QC4qycB168oAr3ky9H20zY/01u+6hpE96\nq12VldUoEF6FiASH75osENZCXDNAnMGUtPa0hboBFc1ErpWkeJctHag81O76ZE3o\nGYujyw5Yh15LcEtayh789gRaPsbdOvLtjAOYdQnfzULyasFRvxQYvM81U0My5vh9\nVqQ6x3Poa8gN0vMuICo0lEM6oy5XLmoBixd4F52vclYsHAqvh2AWXYaTEnDJf7d4\nbauMd2ZpNE9e2EsCcql/S9VhB1xGLMkKrXX2I/7vGjvdRVPgVCExmZBQXNUOnm9i\nrcgupZcHAgMBAAECggEAFGFt+dErWeP9OgkG5EdnGz/AQgoQ+wvmStpFEVrhI/tm\ne3qtG9r2IaBDfDikRqMz6ECDzEA3WzGczGIbokiFbaj6ZovTIpeMebqunq+a7Bho\nn0Ky99rHVe7QlmQQ9lXvkFIsK8orFFUY2NwHhk2qUhUhQvZM/7ID3aLL5Sr9lxOK\nRCZB/apNFYWfdpT94r40Ugl7SzPAZ7YvzAMkGjD51R6v5iOqgK8/PBPk5iijTtSv\nm3swnHydn01tR4VIK+DEC+3zWP/Py7bLgs4Jj8pbNnOtkSK6i1QH+VEzY8MeYDO7\nB/jTn9zkDptvT6B3Vx8j92gqwBdRhG+HI3jLX8bZlQKBgQDczVFPOvO1PLVoTBtI\nXzuM0vTvY8hpPHAiyo03k/Rbd4Y65CCfhYEXSlRr9D4nACKlKq1OwToySpSwN+P5\n1xT/Khj85IIjWU4DVJ39N8g/xlA7BWfGBqKOeauq0gCPGlxVmwyTF8pYspGbV5cH\nHJNXeOPUOCMUx9a9vV6dRx3shQKBgQDGBLcXSpdrEOTrc7y1XhOKq0fOYaNZg4v7\nH64ajx9M8ag5BkrIcZ6JUkZ8nXeXGDIrIQyfwfiJVRYQPpspxH9HSRHwByNR20gz\nhdl04y4YWp3lagrn32WcQz4adF0zGIe5QIc4HorA8qb5fhPPgNgsgzvXvy+Aa2iQ\nqm80DSahGwKBgQCguHLvESJEUiRZ/sv9KhTWtNfFSQSgVXXqXTXdtryvt5jlVRjK\nBQuqQFijG+4BxX9yalYsdUo/QTpp6sTvHzgRZDs8GbkAsgivM/CsWOZSRbAwxgZ7\nhmjc/IOQm7v8blu3lFza1P5dAd4rDN7KNmqpyT1NRG+EuNH+2tD7+sA1YQKBgFh7\n4Oi6fyDroq+Hvyp4SFktol+Zh6nHO3TSujTKAZ2bWqVop2AcTVBlgHPM1ZShzkEx\nenek8I9Fgx9tKl6mnI1ZHHfaaLD6QLAtPneZ0I43Z9kM4qSsUbZa4dRmbQMZEgT4\nzbOJCk2f4HcaHHYbx/1UAxisKOjEliwWzKxAuCNDAoGASUIvrbskqh9eyiJZFqw3\nuacQHqkmGC+7DD4qoNshD+AwE4i59Jwcak+XNTCoK+g8hlXhzAgf92p1qCXXQqat\nauqlUrBvB6mnkmxoCAGqSRLbQTq+J97En1ZIzwanS136JCd2w2hevyASRKW+QsCX\nUN/XYQYFroj9kKOG0Y6vSag=\n-----END PRIVATE KEY-----\n",
+  "client_email": "anarki-bucket-sa@anarki-satujalan-b21-cap0463.iam.gserviceaccount.com",
+  "client_id": "110862398184943233315",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/anarki-bucket-sa%40anarki-satujalan-b21-cap0463.iam.gserviceaccount.com"
+}

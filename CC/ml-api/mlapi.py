@@ -6,6 +6,8 @@ from flask import Flask, flash, request, redirect, url_for, Response
 from werkzeug.utils import secure_filename
 from google.cloud import storage
 from google.cloud import firestore
+from google.oauth2 import service_account
+import json  
 import uuid, shortuuid
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
@@ -29,8 +31,11 @@ def upload_file():
             return Response("{'Error':'user does not select file'}", status=400, mimetype='application/json')        
         if(filename and allowed_file(filename)):
             print(filename)
-            storage_client = storage.Client('qwiklabs-gcp-00-444fb8595efb')
-            bucket_name = "qwiklabs-gcp-00-444fb8595efb"
+
+            credentials_bucket = service_account.Credentials.from_service_account_file("./bucket-sa-anarki-satujalan-b21-cap0463-17a1cb7858c0.json")
+            storage_client = storage.Client('anarki-satujalan-b21-cap0463', credentials=credentials_bucket)
+            # storage_client = storage.Client('anarki-satujalan-b21-cap0463')
+            bucket_name = "bucket-anarki-satujalan-b21-cap0463"
             source_blob_name = filename
             destination_file_name = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             bucket = storage_client.bucket(bucket_name)
@@ -44,19 +49,26 @@ def upload_file():
 
             # Memanggil Program ML
             pecandu = True
+            akurasi = 86.7
 
             # Menyimpan hasil pengolahan ke nosql db
-            db = firestore.Client()
+            credentials_admin = service_account.Credentials.from_service_account_file("./admin-anarki-satujalan-b21-cap0463-5ee09b185288.json")
+            db = firestore.Client('anarki-satujalan-b21-cap0463', credentials=credentials_admin)
             doc_ref = db.collection(u'hasil').document(u'{}'.format(filename))
             doc_ref.set({
                 u'file': u'{}'.format(filename),
                 u'pecandu': u'{}'.format(pecandu),
-                u'akurasi': 50
+                u'akurasi': akurasi
             })
-            
-            return Response("{'Succes':'get success'}", status=200, mimetype='application/json')
+
+            result = {"file": str(filename), "pecandu": pecandu, "akurasi": akurasi}
+            json_result = json.dumps(result)
+
+            return Response(json_result, status=200, mimetype='application/json')
     return Response("{'Error':'input does not match the rules.'}", status=400, mimetype='application/json')
         
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=9000)
         # check if the post request has the file part
     #     if 'file' not in request.files:
     #         flash('No file part')

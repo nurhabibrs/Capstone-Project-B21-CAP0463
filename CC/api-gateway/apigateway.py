@@ -5,6 +5,9 @@ import os
 from flask import Flask, flash, request, redirect, url_for, Response
 from werkzeug.utils import secure_filename
 from google.cloud import storage
+from google.oauth2 import service_account
+import requests
+import json
 import uuid, shortuuid
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
@@ -37,9 +40,10 @@ def upload_file():
             newname = str(uuid.uuid4()) + '-' + str(shortuuid.uuid()) + '-' + file.filename
             filename = secure_filename(newname)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-            storage_client = storage.Client('qwiklabs-gcp-00-444fb8595efb')
-            bucket_name = "qwiklabs-gcp-00-444fb8595efb"
+            credentials_bucket = service_account.Credentials.from_service_account_file("./bucket-sa-anarki-satujalan-b21-cap0463-17a1cb7858c0.json")
+            storage_client = storage.Client('anarki-satujalan-b21-cap0463', credentials=credentials_bucket)
+            # storage_client = storage.Client(credentials=credentials)
+            bucket_name = "bucket-anarki-satujalan-b21-cap0463"
             source_file_name = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             destination_blob_name = newname
             bucket = storage_client.bucket(bucket_name)
@@ -49,9 +53,12 @@ def upload_file():
                 "File {} uploaded to {}.".format(
                     source_file_name, destination_blob_name
                 )
-            ) 
+            )
+            response = requests.get('http://localhost:9000/detect?file={}'.format(newname))
+            data = response.text
+            print(data)
 
-            return Response("{'Success':'file uploaded'}", status=200, mimetype='application/json')
+            return Response(data, status=200, mimetype='application/json')
             # return redirect(url_for('uploaded_file',
             #                         filename=filename))
     return Response("{'Error':'input does not match the rules.'}", status=400, mimetype='application/json')
@@ -64,3 +71,6 @@ def upload_file():
     #   <input type=submit value=Upload>
     # </form>
     # '''
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=8000)
