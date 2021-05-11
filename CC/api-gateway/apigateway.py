@@ -57,7 +57,8 @@ def upload_file():
             response = requests.get('http://localhost:9000/detect?file={}'.format(newname))
             data = response.text
             print(data)
-
+            
+            #return Response("{'berhasil'}", status=200, mimetype='application/json')
             return Response(data, status=200, mimetype='application/json')
             # return redirect(url_for('uploaded_file',
             #                         filename=filename))
@@ -73,4 +74,4 @@ def upload_file():
     # '''
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    app.run(host='172.18.0.2', port=8000)
