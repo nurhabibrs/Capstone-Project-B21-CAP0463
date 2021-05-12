@@ -54,7 +54,7 @@ def upload_file():
                     source_file_name, destination_blob_name
                 )
             )
-            response = requests.get('http://0.0.0.0:9000/detect?file={}'.format(newname))
+            response = requests.get('http://mlapi-service:9000/detect?file={}'.format(newname))
             data = response.text
             print(data)
             
