@@ -54,7 +54,7 @@ def upload_file():
                     source_file_name, destination_blob_name
                 )
             )
-            response = requests.get('http://localhost:9000/detect?file={}'.format(newname))
+            response = requests.get('http://0.0.0.0:9000/detect?file={}'.format(newname))
             data = response.text
             print(data)
             
@@ -74,4 +74,4 @@ def upload_file():
     # '''
 
 if __name__ == '__main__':
-    app.run(host='172.18.0.2', port=8000)
+    app.run(host='0.0.0.0', port=8000)

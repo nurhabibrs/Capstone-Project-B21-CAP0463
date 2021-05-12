@@ -68,7 +68,7 @@ def upload_file():
     return Response("{'Error':'input does not match the rules.'}", status=400, mimetype='application/json')
         
 if __name__ == '__main__':
-    app.run(host='172.18.0.3', port=9000)
+    app.run(host='0.0.0.0', port=9000)
         # check if the post request has the file part
     #     if 'file' not in request.files:
     #         flash('No file part')
