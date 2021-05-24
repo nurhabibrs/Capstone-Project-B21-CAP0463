@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Anarki</string>
+    <string name="image_preview">image preview</string>
+    <string name="predict">Predict</string>
+    <string name="gallery">Gallery</string>
+    <string name="result">Result :</string>
+    <string name="tv_result">Your Result Must be Here</string>
+    <string name="test_your_pict_here">TEST YOUR PICT HERE</string>
+    <string name="information">Information</string>
+    <string name="content">What’s drugs?</string>
+    <string name="contento">Say no to Drugs !!</string>
+    <string name="content_feature">Drugs are substances that change a persons mental or physical state. They can affect the way your brain works, how you feel and behave, your understanding and your senses.</string>
+    <string name="title_home">Home</string>
+    <string name="title_information">Information</string>
+    <string name="title_setting">Setting</string>
+    <string name="pref_title_notifications">Basic</string>
+    <string name="notifications_new_message">otifications_new_message</string>
+    <string name="title_new_notification_sound">New message notification</string>
+    <string name="key_language">key_language</string>
+    <string name="notif_message">Ready to predict your image today?</string>
+    <string name="settings">Settings</string>
+    <string name="camera">Camera</string>
+</resources>
