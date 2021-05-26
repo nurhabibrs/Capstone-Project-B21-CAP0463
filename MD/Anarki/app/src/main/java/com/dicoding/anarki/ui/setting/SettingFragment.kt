@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.dicoding.anarki.R
 import com.dicoding.anarki.databinding.FragmentSettingBinding
-import com.dicoding.anarki.preference.PreferenceFragment
+import com.dicoding.anarki.ui.setting.preference.PreferenceFragment
 
 class SettingFragment: Fragment() {
 

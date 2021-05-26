@@ -1,4 +1,4 @@
-package com.dicoding.anarki.model
+package com.dicoding.anarki.network
 
 import android.os.Handler
 import android.os.Looper
