@@ -1,4 +1,4 @@
-package com.dicoding.anarki.preference
+package com.dicoding.anarki.ui.setting.preference
 
 import android.content.Intent
 import android.os.Bundle

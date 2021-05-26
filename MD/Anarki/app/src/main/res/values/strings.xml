@@ -10,6 +10,7 @@
     <string name="content">What’s drugs?</string>
     <string name="contento">Say no to Drugs !!</string>
     <string name="content_feature">Drugs are substances that change a persons mental or physical state. They can affect the way your brain works, how you feel and behave, your understanding and your senses.</string>
+    <string name="content_feature_2">The purpose of carrying out the socialization of the dangers of drugs is to provide guidance to people so they do not fall into drug abuse. As we all understand that drugs are now threatening the younger generation</string>
     <string name="title_home">Home</string>
     <string name="title_information">Information</string>
     <string name="title_setting">Setting</string>
@@ -20,4 +21,6 @@
     <string name="notif_message">Ready to predict your image today?</string>
     <string name="settings">Settings</string>
     <string name="camera">Camera</string>
+    <string name="fill_result">Accuracy = %1$s\nAddicted = %2$s</string>
+
 </resources>

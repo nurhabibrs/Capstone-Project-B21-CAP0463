@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Anarki</string>
+    <string name="image_preview">preview gambar</string>
+    <string name="predict">Prediksi</string>
+    <string name="gallery">Galeri</string>
+    <string name="result">Hasil :</string>
+    <string name="tv_result">Hasil anda akan berada disini</string>
+    <string name="test_your_pict_here">TEST GAMBAR ANDA</string>
+    <string name="information">Informasi</string>
+    <string name="content">Apa itu Narkoba?</string>
+    <string name="contento">Say no to Drugs !!</string>
+    <string name="content_feature">Narkoba adalah zat yang mengubah keadaan mental atau fisik seseorang. Mereka dapat memengaruhi cara kerja otak Anda, perasaan dan perilaku Anda, pemahaman dan indra Anda.</string>
+    <string name="content_feature_2">Tujuan dilaksanakan sosialisasi bahaya narkoba ini untuk memberikan pembinaan kepada orang-orang agar tidak terjerumus pada penyalahgunaan narkoba.Seperti kita pahami bersama bahwa narkoba kini tengah mengancam generasi muda</string>
+    <string name="title_home">Home</string>
+    <string name="title_information">Informasi</string>
+    <string name="title_setting">Setting</string>
+    <string name="pref_title_notifications">Basic</string>
+    <string name="notifications_new_message">otifications_new_message</string>
+    <string name="title_new_notification_sound">New message notification</string>
+    <string name="key_language">key_language</string>
+    <string name="notif_message">Ready to predict your image today?</string>
+    <string name="settings">Pengaturan</string>
+    <string name="camera">Kamera</string>
+    <string name="fill_result">Akurasi = %1$s\nPecandu = %2$s</string>
+</resources>
