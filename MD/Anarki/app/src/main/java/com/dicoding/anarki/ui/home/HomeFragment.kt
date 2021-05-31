@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,14 +25,22 @@ import com.dicoding.anarki.databinding.FragmentHomeBinding
 import com.dicoding.anarki.network.UploadRequest
 import com.dicoding.anarki.utils.getFileName
 import com.dicoding.anarki.utils.snackbar
-import java.io.*
+import com.dicoding.anarki.viemodel.ViewModelFactory
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 
 class HomeFragment : Fragment(), UploadRequest.UploadCallback {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding as FragmentHomeBinding
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel by lazy {
+        ViewModelProvider(
+            this, ViewModelFactory.getInstance(requireActivity())
+        ).get(HomeViewModel::class.java)
+    }
     private var selectedImageUri: Uri? = null
     private lateinit var photoFile: File
     private lateinit var file: File
@@ -52,9 +61,11 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
         return binding.root
     }
 
+
     @SuppressLint("QueryPermissionsNeeded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         binding.apply {
             btnTakePicture.setOnClickListener {
@@ -82,6 +93,7 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
             }
             btnPredict.setOnClickListener {
                 btnPredict.visibility = View.GONE
+                textAction.text = "Waiting for Server"
                 uploadImage()
                 context?.let { getDataUserFromApi(it) }
             }
@@ -125,19 +137,22 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
     }
 
     private fun getDataUserFromApi(context: Context) {
-        homeViewModel = ViewModelProvider(this).get(
-            HomeViewModel::class.java
-        )
         homeViewModel.getPredictionResult(context, file, body).observe(viewLifecycleOwner, { user ->
             binding.progressBar.progress = 100
             binding.progressBar.visibility = View.INVISIBLE
+            val result = user.data
+//            val imageData : String  = if (result?.image == null) {
+//                "https://image.flaticon.com/icons/png/512/675/675564.png"
+//            }else{
+//                result.image
+//            }
             Glide.with(this)
-                .load(user.image)
+                .load(result?.image)
                 .apply(RequestOptions().centerCrop())
                 .into(binding.imgPreview)
-            val text1 = user.akurasi
+            val text1 = result?.akurasi
 
-            val text2: String = when (user.pecandu) {
+            val text2: String = when (result?.pecandu) {
                 true -> {
                     "Positive"
                 }
@@ -145,10 +160,11 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
                     "Negative"
                 }
                 else -> {
-                    "Not Predicted Yet"
+                    ""
                 }
             }
-            binding.tvResultPredict.text = resources.getString(R.string.fill_result, text1.toString(), text2)
+            binding.tvResultPredict.text =
+                resources.getString(R.string.fill_result, text1.toString(), text2)
         })
     }
 

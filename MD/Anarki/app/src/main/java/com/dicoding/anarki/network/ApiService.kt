@@ -1,6 +1,6 @@
 package com.dicoding.anarki.network
 
-import com.dicoding.anarki.response.PredictResponse
+import com.dicoding.anarki.data.source.remote.response.PredictResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Multipart
