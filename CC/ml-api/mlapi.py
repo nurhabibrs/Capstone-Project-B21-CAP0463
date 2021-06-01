@@ -62,6 +62,10 @@ def upload_file():
             # )
             
             # Memanggil Program ML
+            path_foto = "tmp/{}".format(newname)
+            foto = open(path_foto, "rb")
+            # hasil = namafunctionml(foto)
+            # Dummy data
             pecandu = True
             akurasi = 86.7
 
@@ -74,6 +78,9 @@ def upload_file():
             #     u'pecandu': u'{}'.format(pecandu),
             #     u'akurasi': akurasi
             # })
+            
+            # Hapus gambar
+            os.system("rm {}".format(path_foto))
 
             result = {"file": str(filename), "pecandu": pecandu, "akurasi": akurasi}
             json_result = json.dumps(result)
