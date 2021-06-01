@@ -37,26 +37,40 @@ def upload_file():
             # return redirect(request.url)
             return Response("{'Error':'user does not select file'}", status=400, mimetype='application/json')
         if file and allowed_file(file.filename):
+            # Generate unique name
             newname = str(uuid.uuid4()) + '-' + str(shortuuid.uuid()) + '-' + file.filename
             filename = secure_filename(newname)
+            
+            # Save file ke direktori tmp
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            credentials_bucket = service_account.Credentials.from_service_account_file("./bucket-sa-anarki-satujalan-b21-cap0463-17a1cb7858c0.json")
-            storage_client = storage.Client('anarki-satujalan-b21-cap0463', credentials=credentials_bucket)
+            
+            # Upload ke GCS Bucket
+            # credentials_bucket = service_account.Credentials.from_service_account_file("./bucket-sa-anarki-satujalan-b21-cap0463-17a1cb7858c0.json")
+            # storage_client = storage.Client('anarki-satujalan-b21-cap0463', credentials=credentials_bucket)
             # storage_client = storage.Client(credentials=credentials)
-            bucket_name = "bucket-anarki-satujalan-b21-cap0463"
-            source_file_name = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            destination_blob_name = newname
-            bucket = storage_client.bucket(bucket_name)
-            blob = bucket.blob(destination_blob_name)
-            blob.upload_from_filename(source_file_name)
-            print(
-                "File {} uploaded to {}.".format(
-                    source_file_name, destination_blob_name
-                )
-            )
-            response = requests.get('http://mlapi-service:9000/detect?file={}'.format(newname))
+            # bucket_name = "bucket-anarki-satujalan-b21-cap0463"
+            # source_file_name = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            # destination_blob_name = newname
+            # bucket = storage_client.bucket(bucket_name)
+            # blob = bucket.blob(destination_blob_name)
+            # blob.upload_from_filename(source_file_name)
+            # print(
+            #     "File {} uploaded to {}.".format(
+            #         source_file_name, destination_blob_name
+            #     )
+            # )
+
+            # Send ke ML Service
+            path_foto = "tmp/{}".format(newname)
+            foto = open(path_foto, "rb")
+            mlurl = "http://mlapi-service:9000/detect"
+            response = requests.post(mlurl, files = {"file": foto})
+            # response = requests.get('http://mlapi-service:9000/detect?file={}'.format(newname))
             data = response.text
             print(data)
+
+            # Hapus gambar
+            os.system("rm {}".format(path_foto))
             
             #return Response("{'berhasil'}", status=200, mimetype='application/json')
             return Response(data, status=200, mimetype='application/json')
