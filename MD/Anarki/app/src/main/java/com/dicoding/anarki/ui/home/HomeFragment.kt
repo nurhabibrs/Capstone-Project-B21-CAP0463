@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,10 @@ import com.dicoding.anarki.network.UploadRequest
 import com.dicoding.anarki.utils.getFileName
 import com.dicoding.anarki.utils.snackbar
 import com.dicoding.anarki.viemodel.ViewModelFactory
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -65,6 +68,11 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
     @SuppressLint("QueryPermissionsNeeded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // DummyAds (AdMob)
+        MobileAds.initialize(requireActivity()) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
 
         binding.apply {
@@ -141,11 +149,6 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
             binding.progressBar.progress = 100
             binding.progressBar.visibility = View.INVISIBLE
             val result = user.data
-//            val imageData : String  = if (result?.image == null) {
-//                "https://image.flaticon.com/icons/png/512/675/675564.png"
-//            }else{
-//                result.image
-//            }
             Glide.with(this)
                 .load(result?.image)
                 .apply(RequestOptions().centerCrop())
