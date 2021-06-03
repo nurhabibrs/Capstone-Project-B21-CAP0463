@@ -1,7 +1,10 @@
 import json
-import keras
-from keras.models import load_model
-from keras.preprocessing import image
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras.models import Sequential
+from tensorflow.keras import layers
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 import numpy as np
 
 model_json = open('model/model.json','r').read()
@@ -19,5 +22,4 @@ def predict(foto):
 	else:
 		return("Not Addicted")
 
-hasil = predict()
-print(hasil)
+
