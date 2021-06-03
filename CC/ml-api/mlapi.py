@@ -10,6 +10,7 @@ from google.oauth2 import service_account
 import requests
 import json
 import uuid, shortuuid
+from mlapp import predict as detect
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -63,11 +64,11 @@ def upload_file():
             
             # Memanggil Program ML
             path_foto = "tmp/{}".format(newname)
-            foto = open(path_foto, "rb")
+            hasil = detect(path_foto)
             # hasil = namafunctionml(foto)
             # Dummy data
-            pecandu = True
-            akurasi = 86.7
+            # pecandu = True
+            # akurasi = 86.7
 
             # Menyimpan hasil pengolahan ke nosql db
             # credentials_admin = service_account.Credentials.from_service_account_file("./admin-anarki-satujalan-b21-cap0463-5ee09b185288.json")
@@ -82,7 +83,7 @@ def upload_file():
             # Hapus gambar
             os.system("rm {}".format(path_foto))
 
-            result = {"file": str(filename), "pecandu": pecandu, "akurasi": akurasi}
+            result = {"file": str(filename), "result": hasil}
             json_result = json.dumps(result)
 
             return Response(json_result, status=200, mimetype='application/json')

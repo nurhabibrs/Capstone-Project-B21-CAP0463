@@ -63,7 +63,7 @@ def upload_file():
             # Send ke ML Service
             path_foto = "tmp/{}".format(newname)
             foto = open(path_foto, "rb")
-            mlurl = "http://mlapi-service:9000/detect"
+            mlurl = "http://ml-app-service:9000/detect"
             response = requests.post(mlurl, files = {"file": foto})
             # response = requests.get('http://mlapi-service:9000/detect?file={}'.format(newname))
             data = response.text

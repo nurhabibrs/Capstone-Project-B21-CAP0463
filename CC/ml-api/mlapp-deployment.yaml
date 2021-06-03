@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ml-app-deployment
+  labels:
+    app: ml-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ml-app
+  template:
+    metadata:
+      labels:
+        app: ml-app
+    spec:
+      containers:
+      - name: ml-app
+        image: didilmfs/anarki-satujalan-b21-cap0463-ml-app:v1
+        ports:
+        - containerPort: 9000
