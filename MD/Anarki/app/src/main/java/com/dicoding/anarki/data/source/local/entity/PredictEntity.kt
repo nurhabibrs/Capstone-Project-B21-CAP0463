@@ -12,8 +12,8 @@ data class PredictEntity(
     @PrimaryKey
     @NonNull
     val id: String,
-    val image: String,
-    val pecandu: Boolean? = null,
-    val akurasi: Double? = null,
-    val message: String = "aha"
+    val file: String,
+    val result: String? = null,
+//    val akurasi: Double? = null,
+//    val message: String = "aha"
 )
