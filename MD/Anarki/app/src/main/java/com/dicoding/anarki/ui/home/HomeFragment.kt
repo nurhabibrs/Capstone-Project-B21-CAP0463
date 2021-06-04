@@ -122,7 +122,7 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
                 val goImage = getImageUriFromBitmap(imageData)
                 selectedImageUri = goImage
                 btnPredict.visibility = View.VISIBLE
-                //imgPreview.setImageURI(selectedImageUri)
+//                imgPreview.setImageURI(selectedImageUri)
             }
         } else if (requestCode == REQUEST_CODE_DIR && resultCode == Activity.RESULT_OK) {
             binding.apply {
@@ -149,23 +149,24 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
             binding.progressBar.progress = 100
             binding.progressBar.visibility = View.INVISIBLE
             val result = user.data
-            Glide.with(this)
-                .load(result?.image)
-                .apply(RequestOptions().centerCrop())
-                .into(binding.imgPreview)
-            val text1 = result?.akurasi
+//            Glide.with(this)
+//                .load(result?.image)
+//                .apply(RequestOptions().centerCrop())
+//                .into(binding.imgPreview)
+            val text1 = result?.id
 
-            val text2: String = when (result?.pecandu) {
-                true -> {
-                    "Positive"
-                }
-                false -> {
-                    "Negative"
-                }
-                else -> {
-                    ""
-                }
-            }
+            val text2: String = result?.result.toString()
+//                when (result?.pecandu) {
+//                true -> {
+//                    "Positive"
+//                }
+//                false -> {
+//                    "Negative"
+//                }
+//                else -> {
+//                    ""
+//                }
+//            }
             binding.tvResultPredict.text =
                 resources.getString(R.string.fill_result, text1.toString(), text2)
         })

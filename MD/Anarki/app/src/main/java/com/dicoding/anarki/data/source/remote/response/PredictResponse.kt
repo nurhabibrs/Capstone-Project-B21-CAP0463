@@ -6,16 +6,16 @@ import com.google.gson.annotations.SerializedName
 data class PredictResponse(
 	@field: SerializedName("file")
 	@Expose
-	val image: String? = null,
+	val file: String? = null,
 
-	@field: SerializedName("pecandu")
+	@field: SerializedName("result")
 	@Expose
-	val pecandu: Boolean? = null,
+	val result: String? = null,
 
-	@field: SerializedName("akurasi")
-	@Expose
-	val akurasi: Double? = null,
-
-	val message: String = "aha"
+//	@field: SerializedName("akurasi")
+//	@Expose
+//	val akurasi: Double? = null,
+//
+//	val message: String = "aha"
 )
 

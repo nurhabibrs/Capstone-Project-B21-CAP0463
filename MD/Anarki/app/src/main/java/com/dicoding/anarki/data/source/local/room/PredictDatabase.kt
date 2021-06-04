@@ -24,7 +24,7 @@ abstract class PredictDatabase : RoomDatabase() {
                     context.applicationContext,
                     PredictDatabase::class.java,
                     "anarki_database"
-                ).build().apply {
+                ).fallbackToDestructiveMigration().build().apply {
                     INSTANCE = this
                 }
             }

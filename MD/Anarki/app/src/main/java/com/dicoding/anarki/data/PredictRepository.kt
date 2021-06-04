@@ -24,7 +24,7 @@ class PredictRepository private constructor(
                 localDataSource.getResult(file.name)
 
             override fun shouldFetch(data: PredictEntity?): Boolean =
-                data?.id == file.name
+                data?.id == null
 
             override fun createCall(): LiveData<ApiResponse<PredictResponse>> =
                 remoteDataSource.getPredictionResult(context, file, body)
@@ -32,10 +32,10 @@ class PredictRepository private constructor(
             override fun saveCallResult(data: PredictResponse) {
                 val result = PredictEntity(
                     id = file.name,
-                    image = data.image.toString(),
-                    pecandu = data.pecandu,
-                    akurasi = data.akurasi,
-                    message = data.message
+                    file = data.file.toString(),
+                    result = data.result,
+//                    akurasi = data.akurasi,
+//                    message = data.message
                 )
                 localDataSource.insertResult(result)
             }

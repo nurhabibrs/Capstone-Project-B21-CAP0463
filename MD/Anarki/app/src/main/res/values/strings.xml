@@ -21,6 +21,6 @@
     <string name="notif_message">Ready to predict your image today?</string>
     <string name="settings">Settings</string>
     <string name="camera">Camera</string>
-    <string name="fill_result">Accuracy = %1$s\nAddicted = %2$s</string>
+    <string name="fill_result">File = %1$s\nResult = %2$s</string>
 
 </resources>
