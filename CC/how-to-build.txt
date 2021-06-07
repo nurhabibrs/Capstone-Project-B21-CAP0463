@@ -1,0 +1,17 @@
+# Create New Directory [hari][tanggal][jam][menit]
+mkdir senin070720211326
+
+# Clone repo
+git clone https://github.com/nurhabibrs/Capstone-Project-B21-CAP0463.git
+
+# Create Docker Image
+cd Capstone-Project-B21-CAP0463/
+cd CC
+cd api-gateway/
+docker build -t api-gateway:v1 .
+docker tag api-gateway:v1 didilmfs/anarki-satujalan-b21-cap0463-api-gateway:v1
+docker push didilmfs/anarki-satujalan-b21-cap0463-api-gateway:v1
+cd ../ml-api
+docker build -t ml-app:v1 .
+docker tag ml-app:v1 didilmfs/anarki-satujalan-b21-cap0463-ml-app:v1
+docker push didilmfs/anarki-satujalan-b21-cap0463-ml-app:v1
