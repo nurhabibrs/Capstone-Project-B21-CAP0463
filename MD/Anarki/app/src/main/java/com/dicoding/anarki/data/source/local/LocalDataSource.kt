@@ -1,9 +1,9 @@
 package com.dicoding.anarki.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.dicoding.anarki.data.source.local.entity.PredictEntity
 import com.dicoding.anarki.data.source.local.room.PredictDao
-import java.io.File
 
 class LocalDataSource private constructor(private val predictDao: PredictDao) {
 
@@ -12,6 +12,17 @@ class LocalDataSource private constructor(private val predictDao: PredictDao) {
     }
 
     fun getResult(image: String): LiveData<PredictEntity> = predictDao.getResult(image)
+
+    fun getHistory() : DataSource.Factory<Int, PredictEntity> = predictDao.getHistory()
+
+    fun setImage(predictEntity: PredictEntity, string: String?) {
+        predictEntity.image = string
+        predictDao.updateImage(predictEntity)
+    }
+
+    fun deleteHistory(){
+        predictDao.deleteHistory()
+    }
 
     companion object {
         private var INSTANCE: LocalDataSource? = null

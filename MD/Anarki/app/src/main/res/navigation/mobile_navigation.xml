@@ -21,5 +21,10 @@
         android:id="@+id/navigation_setting"
         android:name="com.dicoding.anarki.ui.setting.SettingFragment"
         android:label="@string/title_setting" />
+    <fragment
+        android:id="@+id/navigation_history"
+        android:name="com.dicoding.anarki.ui.recent.RecentFragment"
+        android:label="RecentFragment"
+        tools:layout="@layout/fragment_recent"/>
 
 </navigation>

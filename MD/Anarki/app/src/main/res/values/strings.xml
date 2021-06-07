@@ -22,5 +22,10 @@
     <string name="settings">Settings</string>
     <string name="camera">Camera</string>
     <string name="fill_result">File = %1$s\nResult = %2$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addicted">Addicted</string>
+    <string name="history">History</string>
+    <string name="clear_history">Clear History</string>
 
 </resources>

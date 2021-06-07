@@ -17,9 +17,8 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.dicoding.anarki.R
+import com.dicoding.anarki.data.source.local.entity.PredictEntity
 import com.dicoding.anarki.databinding.FragmentHomeBinding
 import com.dicoding.anarki.network.UploadRequest
 import com.dicoding.anarki.utils.getFileName
@@ -27,8 +26,6 @@ import com.dicoding.anarki.utils.snackbar
 import com.dicoding.anarki.viemodel.ViewModelFactory
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -103,6 +100,7 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
                 btnPredict.visibility = View.GONE
                 textAction.text = "Waiting for Server"
                 uploadImage()
+
                 context?.let { getDataUserFromApi(it) }
             }
 
@@ -122,7 +120,6 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
                 val goImage = getImageUriFromBitmap(imageData)
                 selectedImageUri = goImage
                 btnPredict.visibility = View.VISIBLE
-//                imgPreview.setImageURI(selectedImageUri)
             }
         } else if (requestCode == REQUEST_CODE_DIR && resultCode == Activity.RESULT_OK) {
             binding.apply {
@@ -149,26 +146,11 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
             binding.progressBar.progress = 100
             binding.progressBar.visibility = View.INVISIBLE
             val result = user.data
-//            Glide.with(this)
-//                .load(result?.image)
-//                .apply(RequestOptions().centerCrop())
-//                .into(binding.imgPreview)
             val text1 = result?.id
-
             val text2: String = result?.result.toString()
-//                when (result?.pecandu) {
-//                true -> {
-//                    "Positive"
-//                }
-//                false -> {
-//                    "Negative"
-//                }
-//                else -> {
-//                    ""
-//                }
-//            }
             binding.tvResultPredict.text =
                 resources.getString(R.string.fill_result, text1.toString(), text2)
+            homeViewModel.setImage(user.data, selectedImageUri.toString())
         })
     }
 
