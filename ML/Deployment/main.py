@@ -20,7 +20,7 @@ def predict(img_dir):
 	i = image.img_to_array(i)
 	i = i.reshape(1, 180, 180, 3)
 	p = model.predict_classes(i)
-	if p[0] > 0.5:
+	if p[0] < 0.5:
 		return("Adicted")
 	else:
 		return("Not Adicted")
