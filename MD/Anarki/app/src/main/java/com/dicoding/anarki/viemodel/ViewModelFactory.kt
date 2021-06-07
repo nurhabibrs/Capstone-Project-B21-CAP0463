@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.dicoding.anarki.data.PredictRepository
 import com.dicoding.anarki.di.Injection
 import com.dicoding.anarki.ui.home.HomeViewModel
+import com.dicoding.anarki.ui.recent.RecentViewModel
 
 class ViewModelFactory private constructor(private val predictRepository: PredictRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -15,6 +16,10 @@ class ViewModelFactory private constructor(private val predictRepository: Predic
         return when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(predictRepository) as T
+            }
+
+            modelClass.isAssignableFrom(RecentViewModel::class.java) -> {
+                RecentViewModel(predictRepository) as T
             }
 
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)

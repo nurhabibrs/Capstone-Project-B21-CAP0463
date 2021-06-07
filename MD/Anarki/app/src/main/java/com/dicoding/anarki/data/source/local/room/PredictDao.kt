@@ -1,12 +1,10 @@
 package com.dicoding.anarki.data.source.local.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.paging.DataSource
+import androidx.room.*
 import com.dicoding.anarki.data.source.local.entity.PredictEntity
-import java.io.File
+
 
 @Dao
 interface PredictDao {
@@ -14,6 +12,17 @@ interface PredictDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = PredictEntity::class)
     fun insertResult(prediction: PredictEntity)
 
+
     @Query("SELECT * FROM predict_result_table WHERE id = :id")
     fun getResult(id: String): LiveData<PredictEntity>
+
+    @Query("SELECT * FROM predict_result_table")
+    fun getHistory():  DataSource.Factory<Int, PredictEntity>
+
+    @Update
+    fun updateImage(prediction: PredictEntity)
+
+    @Query("DELETE FROM predict_result_table")
+    fun deleteHistory()
+
 }

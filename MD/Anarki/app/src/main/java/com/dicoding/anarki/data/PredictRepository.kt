@@ -1,8 +1,9 @@
 package com.dicoding.anarki.data
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.dicoding.anarki.data.source.local.LocalDataSource
 import com.dicoding.anarki.data.source.local.entity.PredictEntity
 import com.dicoding.anarki.data.source.remote.ApiResponse
@@ -24,7 +25,7 @@ class PredictRepository private constructor(
                 localDataSource.getResult(file.name)
 
             override fun shouldFetch(data: PredictEntity?): Boolean =
-                data?.id == null
+                true
 
             override fun createCall(): LiveData<ApiResponse<PredictResponse>> =
                 remoteDataSource.getPredictionResult(context, file, body)
@@ -42,6 +43,29 @@ class PredictRepository private constructor(
 
         }.asLiveData()
     }
+
+    override fun getHistory(): LiveData<PagedList<PredictEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+
+        return LivePagedListBuilder(localDataSource.getHistory(), config).build()
+    }
+
+    override fun setImage(predictEntity: PredictEntity, image: String?) {
+        appExecutors.diskIO().execute {
+            localDataSource.setImage(predictEntity, image)
+        }
+    }
+
+    override fun deleteHistory() {
+        appExecutors.diskIO().execute {
+            localDataSource.deleteHistory()
+        }
+    }
+
 
     companion object {
         @Volatile
