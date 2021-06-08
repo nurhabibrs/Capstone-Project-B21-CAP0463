@@ -6,6 +6,7 @@ gcloud container clusters get-credentials anarki-cluster --zone asia-southeast2-
 
 # Create New Directory [hari][tanggal][jam][menit]
 mkdir senin070720211326
+cd senin070720211326
 
 # Clone repo
 git clone https://github.com/nurhabibrs/Capstone-Project-B21-CAP0463.git
