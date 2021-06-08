@@ -32,9 +32,9 @@ def predict(foto):
 
   if len(faces)==1:
     if classes[0]<0.5:
-      return("Adicted")
+      return("Addicted")
     else:
-      return("Not Adicted")
+      return("Not Addicted")
   elif len(faces)==0:
     return("No Faces Detected")
   else:
