@@ -35,17 +35,19 @@ def predict(dir):
 
 #  return classes[0]
 
-  if len(faces)!=0:
+  if len(faces)==1:
     if classes[0]<0.5:
       return("Adicted")
     else:
-      return("Not adicted")
+      return("Not Adicted")
+  elif len(faces)==0:
+    return("No Faces Detected")
   else:
-    return("No Face Detected")
+    return("Too Many Faces Detected")
 
 #	return dic[round(p[0])]
 
-print(predict("4196309-01.jpg"))
+print(predict("M.jpeg"))
 
 #if __name__ == '__main__':
 #	app.run(host='0.0.0.0', port=5000)
