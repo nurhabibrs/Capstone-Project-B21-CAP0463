@@ -1,6 +1,7 @@
 package com.dicoding.anarki.data
 
 import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -31,12 +32,12 @@ class PredictRepository private constructor(
                 remoteDataSource.getPredictionResult(context, file, body)
 
             override fun saveCallResult(data: PredictResponse) {
+                val uri = Uri.fromFile(file)
                 val result = PredictEntity(
                     id = file.name,
                     file = data.file.toString(),
                     result = data.result,
-//                    akurasi = data.akurasi,
-//                    message = data.message
+                    image = uri.toString()
                 )
                 localDataSource.insertResult(result)
             }
@@ -52,12 +53,6 @@ class PredictRepository private constructor(
             .build()
 
         return LivePagedListBuilder(localDataSource.getHistory(), config).build()
-    }
-
-    override fun setImage(predictEntity: PredictEntity, image: String?) {
-        appExecutors.diskIO().execute {
-            localDataSource.setImage(predictEntity, image)
-        }
     }
 
     override fun deleteHistory() {

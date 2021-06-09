@@ -1,7 +1,6 @@
 package com.dicoding.anarki.data.source.remote
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,10 +26,8 @@ class RemoteDataSource {
         ).enqueue(object : Callback<PredictResponse> {
             override fun onFailure(call: Call<PredictResponse>, t: Throwable) {
                 val data = PredictResponse(
-                    file = "https://image.flaticon.com/icons/png/512/675/675564.png",
-                    result = "Not Predicted Yet",
-//                    akurasi = 0.0,
-//                    message = ""
+                    file = file.name,
+                    result = "Not Predicted Yet"
                 )
                 listDetails.postValue(ApiResponse.success(data))
                 Toast.makeText(context, "Server on Failure", Toast.LENGTH_SHORT).show()
@@ -44,9 +41,7 @@ class RemoteDataSource {
                     val result = response.body()
                     val data = PredictResponse(
                         file = result?.file,
-                        result = result?.result,
-//                        akurasi = result?.akurasi,
-//                        message = result?.message.toString()
+                        result = result?.result
                     )
                     listDetails.postValue(ApiResponse.success(data))
                     if (body.toString() == "[]") {

@@ -15,12 +15,16 @@
     <string name="title_home">Home</string>
     <string name="title_information">Informasi</string>
     <string name="title_setting">Setting</string>
-    <string name="pref_title_notifications">Basic</string>
     <string name="notifications_new_message">otifications_new_message</string>
-    <string name="title_new_notification_sound">New message notification</string>
+    <string name="title_new_notification_sound">Notifikasi</string>
     <string name="key_language">key_language</string>
     <string name="notif_message">Ready to predict your image today?</string>
     <string name="settings">Pengaturan</string>
     <string name="camera">Kamera</string>
     <string name="fill_result">File = %1$s\nHasil = %2$s</string>
+    <string name="waiting_server">Menunggu Server</string>
+    <string name="choose_image_below">Pilih menu dibawah ini</string>
+    <string name="addicted">Pecandu</string>
+    <string name="history">Riwayat</string>
+    <string name="language">Bahasa</string>
 </resources>

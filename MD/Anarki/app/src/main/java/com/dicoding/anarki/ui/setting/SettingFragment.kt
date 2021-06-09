@@ -9,7 +9,7 @@ import com.dicoding.anarki.R
 import com.dicoding.anarki.databinding.FragmentSettingBinding
 import com.dicoding.anarki.ui.setting.preference.PreferenceFragment
 
-class SettingFragment: Fragment() {
+class SettingFragment : Fragment() {
 
     private var _binding: FragmentSettingBinding? = null
     private val binding get() = _binding!!

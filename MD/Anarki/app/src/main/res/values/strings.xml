@@ -14,18 +14,17 @@
     <string name="title_home">Home</string>
     <string name="title_information">Information</string>
     <string name="title_setting">Setting</string>
-    <string name="pref_title_notifications">Basic</string>
     <string name="notifications_new_message">otifications_new_message</string>
-    <string name="title_new_notification_sound">New message notification</string>
+    <string name="title_new_notification_sound">Notification</string>
     <string name="key_language">key_language</string>
     <string name="notif_message">Ready to predict your image today?</string>
     <string name="settings">Settings</string>
     <string name="camera">Camera</string>
     <string name="fill_result">File = %1$s\nResult = %2$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="addicted">Addicted</string>
     <string name="history">History</string>
-    <string name="clear_history">Clear History</string>
+    <string name="waiting_server">Waiting for Server</string>
+    <string name="choose_image_below">Choose menu below</string>
+    <string name="language">Language</string>
 
 </resources>

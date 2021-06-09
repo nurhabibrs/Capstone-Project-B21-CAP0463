@@ -55,7 +55,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="250dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Choose image below"
+                android:text="@string/choose_image_below"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -115,6 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:paddingBottom="10dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +129,7 @@
                 android:layout_marginStart="8dp"
                 android:backgroundTint="@color/primaryLightColor"
                 android:drawableLeft="@drawable/ic_camera"
-                android:elevation="8dp"
+                android:elevation="5dp"
                 android:fontFamily="@font/poppins_medium"
                 android:padding="10dp"
                 android:text="@string/camera"
@@ -186,8 +187,9 @@
                 android:id="@+id/tv_result_predict"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:padding="12dp"
+                android:textColor="@color/white"
                 android:text="@string/tv_result"
                 android:textAlignment="viewStart" />
 

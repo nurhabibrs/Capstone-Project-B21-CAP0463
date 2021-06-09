@@ -14,7 +14,5 @@ interface PredictDataSource {
 
     fun getHistory(): LiveData<PagedList<PredictEntity>>
 
-    fun setImage(predictEntity: PredictEntity, image: String?)
-
     fun deleteHistory()
 }
