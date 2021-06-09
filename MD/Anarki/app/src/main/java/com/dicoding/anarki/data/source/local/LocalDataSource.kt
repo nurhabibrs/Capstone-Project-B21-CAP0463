@@ -15,11 +15,6 @@ class LocalDataSource private constructor(private val predictDao: PredictDao) {
 
     fun getHistory() : DataSource.Factory<Int, PredictEntity> = predictDao.getHistory()
 
-    fun setImage(predictEntity: PredictEntity, string: String?) {
-        predictEntity.image = string
-        predictDao.updateImage(predictEntity)
-    }
-
     fun deleteHistory(){
         predictDao.deleteHistory()
     }

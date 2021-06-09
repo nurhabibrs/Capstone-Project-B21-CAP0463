@@ -5,7 +5,6 @@ import androidx.paging.DataSource
 import androidx.room.*
 import com.dicoding.anarki.data.source.local.entity.PredictEntity
 
-
 @Dao
 interface PredictDao {
 
@@ -18,9 +17,6 @@ interface PredictDao {
 
     @Query("SELECT * FROM predict_result_table")
     fun getHistory():  DataSource.Factory<Int, PredictEntity>
-
-    @Update
-    fun updateImage(prediction: PredictEntity)
 
     @Query("DELETE FROM predict_result_table")
     fun deleteHistory()

@@ -24,9 +24,6 @@ class RecentAdapter : PagedListAdapter<PredictEntity, RecentAdapter.ListViewHold
         }
     }
 
-
-    fun getSwipedData(swipedPosition: Int): PredictEntity? = getItem(swipedPosition)
-
     inner class ListViewHolder(private val binding: ItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

@@ -10,20 +10,25 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 class InformationFragment : Fragment() {
 
-    private lateinit var binding:FragmentInformationBinding
-    private lateinit var youTubePlayerView:YouTubePlayerView
+    private lateinit var binding: FragmentInformationBinding
+    private lateinit var youTubePlayerView: YouTubePlayerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentInformationBinding.inflate(inflater, container, false)
 
         youTubePlayerView = binding.activityMainYoutubePlayerView
         lifecycle.addObserver(youTubePlayerView)
 
         return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(youTubePlayerView)
     }
 
 }

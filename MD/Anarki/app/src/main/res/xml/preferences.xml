@@ -10,7 +10,7 @@
 
         <Preference
             android:key="@string/key_language"
-            android:title="Language"
+            android:title="@string/language"
             android:icon="@drawable/ic_language"
             app:allowDividerAbove="true"/>
 

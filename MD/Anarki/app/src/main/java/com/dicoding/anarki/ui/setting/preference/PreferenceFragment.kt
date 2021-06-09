@@ -13,8 +13,8 @@ import com.dicoding.anarki.reminder.ReminderReceiver
 
 class PreferenceFragment : PreferenceFragmentCompat() {
 
-    private lateinit var languagePreference : Preference
-    private lateinit var reminderPreference : SwitchPreference
+    private lateinit var languagePreference: Preference
+    private lateinit var reminderPreference: SwitchPreference
     private lateinit var reminderReceiver: ReminderReceiver
     private lateinit var reminderModel: ReminderModel
 
@@ -46,9 +46,9 @@ class PreferenceFragment : PreferenceFragmentCompat() {
             Preference.OnPreferenceChangeListener { _, _ ->
                 reminderPreference.isChecked = !reminderPreference.isChecked
 
-                if (reminderPreference.isChecked){
+                if (reminderPreference.isChecked) {
                     saveStateReminder(true)
-                    context?.let { reminderReceiver.setReminderRepeater(it, "09:00", "Github User") }
+                    context?.let { reminderReceiver.setReminderRepeater(it, "09:00", "Anarki") }
                 } else {
                     saveStateReminder(false)
                     context?.let { reminderReceiver.unSetReminder(it) }

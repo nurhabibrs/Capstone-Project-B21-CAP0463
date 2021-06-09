@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -14,11 +15,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.anarki.R
-import com.dicoding.anarki.data.source.local.entity.PredictEntity
 import com.dicoding.anarki.databinding.FragmentHomeBinding
 import com.dicoding.anarki.network.UploadRequest
 import com.dicoding.anarki.utils.getFileName
@@ -26,10 +29,7 @@ import com.dicoding.anarki.utils.snackbar
 import com.dicoding.anarki.viemodel.ViewModelFactory
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.io.*
 
 
 class HomeFragment : Fragment(), UploadRequest.UploadCallback {
@@ -47,8 +47,6 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
     private lateinit var body: UploadRequest
 
     companion object {
-        const val REQUEST_CODE_CAM = 100
-        const val REQUEST_CODE_DIR = 101
         private const val FILE_NAME = "photo.jpg"
     }
 
@@ -71,7 +69,6 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
         val adRequest = AdRequest.Builder().build()
         binding.adView.loadAd(adRequest)
 
-
         binding.apply {
             btnTakePicture.setOnClickListener {
                 val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -86,7 +83,7 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
                 }
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
                 if (context?.packageManager?.let { it1 -> cameraIntent.resolveActivity(it1) } != null) {
-                    startActivityForResult(cameraIntent, REQUEST_CODE_CAM)
+                    startForCamera.launch(cameraIntent)
                 } else {
                     Toast.makeText(context, "Unable to open camera", Toast.LENGTH_SHORT).show()
                 }
@@ -94,46 +91,47 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
             btnAddPicture.setOnClickListener {
                 val directoryIntent = Intent(Intent.ACTION_PICK)
                 directoryIntent.type = "image/"
-                startActivityForResult(directoryIntent, REQUEST_CODE_DIR)
+                startForDirectory.launch(directoryIntent)
             }
             btnPredict.setOnClickListener {
                 btnPredict.visibility = View.GONE
-                textAction.text = "Waiting for Server"
+                textAction.text = getString(R.string.waiting_server)
                 uploadImage()
-
                 context?.let { getDataUserFromApi(it) }
             }
 
-
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        if (requestCode == REQUEST_CODE_CAM && resultCode == Activity.RESULT_OK) {
-            //val imageData = data?.extras?.get("data") as Bitmap
-            val imageData = BitmapFactory.decodeFile(photoFile.absolutePath)
-            binding.apply {
-                imgPreviewSample.visibility = View.GONE
-                imgPreview.visibility = View.VISIBLE
-                imgPreview.setImageBitmap(imageData)
-                val goImage = getImageUriFromBitmap(imageData)
-                selectedImageUri = goImage
-                btnPredict.visibility = View.VISIBLE
+    private val startForCamera =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val imageData = checkStateAndRotation(photoFile)
+                binding.apply {
+                    imgPreviewSample.visibility = View.GONE
+                    imgPreview.visibility = View.VISIBLE
+                    imgPreview.setImageBitmap(imageData)
+//                imageData = Bitmap.createScaledBitmap(imageData, 200, 200, false)
+                    val goImage = imageData?.let { getImageUriFromBitmap(it) }
+                    selectedImageUri = goImage
+                    btnPredict.visibility = View.VISIBLE
+                }
             }
-        } else if (requestCode == REQUEST_CODE_DIR && resultCode == Activity.RESULT_OK) {
-            binding.apply {
-                imgPreviewSample.visibility = View.GONE
-                imgPreview.visibility = View.VISIBLE
-                selectedImageUri = data?.data
-                imgPreview.setImageURI(selectedImageUri)
-                btnPredict.visibility = View.VISIBLE
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
 
-    }
+    private val startForDirectory =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                binding.apply {
+                    imgPreviewSample.visibility = View.GONE
+                    imgPreview.visibility = View.VISIBLE
+                    selectedImageUri = result.data?.data
+                    imgPreview.setImageURI(selectedImageUri)
+                    btnPredict.visibility = View.VISIBLE
+                }
+            }
+        }
+
 
     private fun getPhotoFile(fileName: String): File {
         // Use `getExternalFilesDir` on Context to access package-specific directories.
@@ -144,13 +142,15 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
     private fun getDataUserFromApi(context: Context) {
         homeViewModel.getPredictionResult(context, file, body).observe(viewLifecycleOwner, { user ->
             binding.progressBar.progress = 100
-            binding.progressBar.visibility = View.INVISIBLE
             val result = user.data
             val text1 = result?.id
             val text2: String = result?.result.toString()
-            binding.tvResultPredict.text =
-                resources.getString(R.string.fill_result, text1.toString(), text2)
-            homeViewModel.setImage(user.data, selectedImageUri.toString())
+            if (text1 == null) {
+                binding.tvResultPredict.text = getString(R.string.waiting_server)
+            } else {
+                binding.tvResultPredict.text =
+                    resources.getString(R.string.fill_result, text1.toString(), text2)
+            }
         })
     }
 
@@ -165,7 +165,6 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
 
         val parcelFileDescriptor =
             resolver.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
-
 
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         file = File(cacheDir, resolver.getFileName(selectedImageUri!!))
@@ -183,10 +182,52 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
 
     private fun getImageUriFromBitmap(bitmap: Bitmap): Uri {
         val bytes = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bytes)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 25, bytes)
         val resolver = requireActivity().contentResolver
-        val path = MediaStore.Images.Media.insertImage(resolver, bitmap, "Title", null)
+        val path = MediaStore.Images.Media.insertImage(
+            resolver,
+            bitmap,
+            System.currentTimeMillis().toString(),
+            null
+        )
         return Uri.parse(path.toString())
+    }
+
+    private fun checkStateAndRotation(imageFile: File): Bitmap? {
+        // Dimensions check (true?)
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true
+        FileInputStream(imageFile).use { imageStream ->
+            BitmapFactory.decodeStream(imageStream, null, options)
+        }
+        // Bitmap Decode
+        options.inJustDecodeBounds = false
+        val bitmap = FileInputStream(imageFile).use { imageStream ->
+            BitmapFactory.decodeStream(imageStream, null, options)
+        }
+        return bitmap?.let { rotateImageCondition(it, imageFile) }
+    }
+
+    private fun rotateImageCondition(img: Bitmap, imageFile: File): Bitmap {
+        val ei = FileInputStream(imageFile).use { ExifInterface(it) }
+        val orientation = ei.getAttributeInt(
+            ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_UNDEFINED
+        )
+        return when (orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(img, 90f)
+            ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(img, 180f)
+            ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(img, 270f)
+            else -> img
+        }
+    }
+
+    private fun rotateImage(img: Bitmap, degree: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degree)
+        val rotatedImg = Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
+        img.recycle()
+        return rotatedImg
     }
 
 }

@@ -12,10 +12,5 @@ data class PredictResponse(
 	@Expose
 	val result: String? = null,
 
-//	@field: SerializedName("akurasi")
-//	@Expose
-//	val akurasi: Double? = null,
-//
-//	val message: String = "aha"
 )
 
