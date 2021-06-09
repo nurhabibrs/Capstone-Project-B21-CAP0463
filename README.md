@@ -16,9 +16,9 @@ Team Member:
 
 How to use Apps :
 1. Open Settings -> Give permission(Allow) for Install Unknown Apps/Source
-2. Download the APK Files [here](https://drive.google.com/file/d/1KqHYvWPSAvaPEXCLqvJN6YOLjk5ETSFc/view?usp=sharing)
+2. Download the APK Files [here](https://drive.google.com/file/d/1Li2RbE3b5HpZRSZG0j7iWB6nJJiXYFtw/view?usp=sharing)
 3. Install APK FIles (Allow install for spesific apps(if required))
 4. Open App
 5. Choose method to get Image (Camera or Gallery)
 6. Press button Predict (wait a second to get Prediction Result)
-7. Explore another page (History to know how many Image Predicted, Information to knwo more about the Danger of Drugs, Setting to get notified everyday and change the language)
+7. Explore another page (History to know how many Image Predicted, Information to know more about the Danger of Drugs, Setting to get notified everyday and change the language)
