@@ -9,7 +9,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+        >
 <!--    AdView for DummyAds (AdMob)    -->
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
@@ -164,7 +166,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/result"
             android:textColor="@color/txt_app"
@@ -177,7 +178,9 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primaryLightColor"
             app:cardCornerRadius="10dp"
-            android:layout_margin="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="60dp"
             android:elevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
