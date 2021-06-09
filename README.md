@@ -4,7 +4,7 @@ The repository of Capstone Project Bangkit 2021 by Team B21-CAP0463 (SatuJalan T
 ### Anarki: First layer detection of drug abuse by face recognition based on mobile apps
 
 ![alt text](MD/Design/Anarki_Banner.png)
-![alt text](CC/Anarki Cloud Architecture.png)
+![alt text](CC/anarki-cloud-architecture.png)
 
 Team Member:
 * Annas Furqon Mahdali (A0080787) - Mobile Programming (Android) - Universitas Gadjah Mada
