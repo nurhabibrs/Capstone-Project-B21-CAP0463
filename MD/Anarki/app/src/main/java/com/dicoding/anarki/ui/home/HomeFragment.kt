@@ -14,7 +14,6 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -30,7 +29,6 @@ import com.dicoding.anarki.viemodel.ViewModelFactory
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import java.io.*
-
 
 class HomeFragment : Fragment(), UploadRequest.UploadCallback {
 
@@ -60,7 +58,6 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
     }
 
 
-    @SuppressLint("QueryPermissionsNeeded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,11 +79,11 @@ class HomeFragment : Fragment(), UploadRequest.UploadCallback {
                     )
                 }
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
-                if (context?.packageManager?.let { it1 -> cameraIntent.resolveActivity(it1) } != null) {
+//                if (context?.packageManager?.let { it1 -> cameraIntent.resolveActivity(it1) } != null) {
                     startForCamera.launch(cameraIntent)
-                } else {
-                    Toast.makeText(context, "Unable to open camera", Toast.LENGTH_SHORT).show()
-                }
+//                } else {
+//                    Toast.makeText(context, "Unable to open camera", Toast.LENGTH_SHORT).show()
+//                }
             }
             btnAddPicture.setOnClickListener {
                 val directoryIntent = Intent(Intent.ACTION_PICK)
