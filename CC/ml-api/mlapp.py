@@ -22,18 +22,19 @@ def predict(foto):
   faces = sorted(tuple(data) for data in list(detections))
   faces = tuple(faces)
 
-  i = image.load_img(foto, target_size=(180, 180))
-  i = image.img_to_array(i)
-  i = i.reshape(1, 180, 180, 3)
-  p = model.predict_classes(i)
+  img = image.load_img(foto, target_size=(180,180))
+  x = image.img_to_array(img)
+  x = np.expand_dims(x, axis=0)
+  images = np.vstack([x])
+  classes = model.predict_classes(images)
 
 #  return classes[0]
 
   if len(faces)!=0:
-    if p<0.5:
-      return("Addicted",p)
+    if classes<0.5:
+      return("Adicted")
     else:
-      return("Not Addicted",p)
+      return("Not Adicted")
   else:
     return("No Faces Detected")
 
