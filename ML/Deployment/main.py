@@ -36,9 +36,9 @@ def predict(dir):
 
   if len(faces)!=0:
     if p<0.5:
-      return("Adicted",p)
+      return("Adicted")
     else:
-      return("Not Adicted",p)
+      return("Not Adicted")
   else:
     return("No Faces Detected")
 
