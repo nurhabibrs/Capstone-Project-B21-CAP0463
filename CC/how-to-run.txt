@@ -20,3 +20,7 @@ kubectl apply -f mlapp-service.yaml
 cd ../api-gateway
 kubectl apply -f apigateway-deployment.yaml
 kubectl apply -f apigateway-service.yaml
+
+# Enable HPA
+kubectl autoscale deployment api-gateway-deployment --cpu-percent=85 --min=1 --max=4
+kubectl autoscale deployment ml-app-deployment --cpu-percent=85 --min=1 --max=4
